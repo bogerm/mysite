@@ -25,5 +25,5 @@ urlpatterns = [
     path('food/', include('food.urls')),
     path('register/', user_views.register, name='register'),
     path('login/', LoginView.as_view(template_name='users/login.html', next_page='food:index'), name='login'),
-    path('login/', LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+    path('logout/', LogoutView.as_view(template_name='users/logout.html'), name='logout'),
 ]
