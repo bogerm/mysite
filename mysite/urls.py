@@ -20,6 +20,11 @@ from users import views as user_views
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
 
+# ----------- The following should not go to production server --------
+from django.conf import settings
+from django.conf.urls.static import static
+# ---------------------------------------------------------------------
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('food/', include('food.urls')),
@@ -28,3 +33,10 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('profile/', user_views.profilepage, name='profile'),
 ]
+
+# ----------- The following should not go to production server --------
+# See https://docs.djangoproject.com/en/5.1/howto/static-files/deployment/
+urlpatterns += [
+    # ... the rest of your URLconf goes here ...
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# ---------------------------------------------------------------------
