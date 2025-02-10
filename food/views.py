@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
 #from django.template import loader
 from .models import Item
 from .forms import ItemForm
@@ -41,6 +42,16 @@ def create_item(request):
         return redirect('food:index')
     
     return render(request, 'food/item-form.html', {'form':form})
+
+class CreateItem(CreateView):
+    model = Item
+    fields = ['item_name', 'item_desc', 'item_price', 'item_image']
+    template_name = 'food/item-form.html'
+
+    def form_valid(self, form):
+        form.instance.user_name = self.request.user
+
+        return super().form_valid(form)
 
 def update_item(request, id):
     item = Item.objects.get(pk=id)
