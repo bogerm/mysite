@@ -6,3 +6,5 @@ class Moviedata(models.Model):
     duration = models.FloatField()
     rating = models.FloatField()
 
+    def __str__(self):
+        return self.name
