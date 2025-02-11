@@ -32,6 +32,8 @@ urlpatterns = [
     path('login/', LoginView.as_view(template_name='users/login.html', next_page='food:index'), name='login'),
     path('logout/', LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('profile/', user_views.profilepage, name='profile'),
+
+    path('movies/', include('movies.urls')),
 ]
 
 # ----------- The following should not go to production server --------
